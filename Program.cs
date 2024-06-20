@@ -21,8 +21,10 @@ namespace final_project_C_sharp2
             Oil angelWings = new Oil("angel wings", "top", "sweet");
             Oil cinnamon = new Oil("cinnamon", "middle", "earthy");
             Oil lemon = new Oil("lemon", "top", "citrusy");
+            Oil orange = new Oil("orange", "middle", "citrusy");
 
-            List<Oil> oilDatabase = new List<Oil> { jasmine, vanilla, magnolia, sandalwood, cedarwood, lily, angelWings, cinnamon, lemon };
+            List<Oil> oilDatabase = new List<Oil> { jasmine, vanilla, magnolia, sandalwood,
+                cedarwood, lily, angelWings, cinnamon, lemon, orange };
 
             var oilsAlphabetically = oilDatabase.OrderBy(r => r.OilName);
             foreach (Oil oil in oilsAlphabetically)
