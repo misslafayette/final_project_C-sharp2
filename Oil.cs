@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace final_project_C_sharp2
 {
@@ -18,7 +15,9 @@ namespace final_project_C_sharp2
             CompositionPart = compositionPart;
             ScentType = scentType;
         }
+
+        private void Oil1()
+        {
+        }
     }
-
-
 }
