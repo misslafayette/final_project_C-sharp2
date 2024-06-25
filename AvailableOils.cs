@@ -77,18 +77,14 @@ namespace final_project_C_sharp2
 
         public static void OrderAlphabetically()
         {
-            List<Oil> oilsList = ListOils();
-            var oilsAlphabetically = oilsList.OrderBy(r => r.OilName);
-            foreach (Oil oil in oilsAlphabetically)
+            foreach (Oil oil in ListOils().OrderBy(r => r.OilName))
             {
                 Console.WriteLine(oil.OilName);
             }
         }
         public static void OrderByComposition()
         {
-            List<Oil> oilsList = ListOils();
-            var oilsByComposition = oilsList.GroupBy(r => r.CompositionPart);
-            foreach (var groupOfOils in oilsByComposition)
+            foreach (var groupOfOils in ListOils().GroupBy(r => r.CompositionPart))
             {
                 Console.WriteLine(groupOfOils.Key);
                 foreach (Oil oil in groupOfOils)
@@ -99,9 +95,7 @@ namespace final_project_C_sharp2
         }
         public static void OrderByScentType()
         {
-            List<Oil> oilsList = ListOils();
-            var oilsByScentType = oilsList.GroupBy(r => r.ScentType);
-            foreach (var groupOfOils in oilsByScentType)
+            foreach (var groupOfOils in ListOils().GroupBy(r => r.ScentType))
             {
                 Console.WriteLine(groupOfOils.Key);
                 foreach (Oil oil in groupOfOils)

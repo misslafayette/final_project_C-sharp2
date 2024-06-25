@@ -10,28 +10,41 @@ namespace final_project_C_sharp2
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome! Choose one of the following options to continue:");
-            Console.WriteLine("List essential oils alphabetically: 'A'");
-            Console.WriteLine("Group oils by composition part: 'C'");
-            Console.WriteLine("> Group oils by scent type: 'S'");
-            Console.WriteLine("> Create a new perfume: 'N'");
-            Console.WriteLine("> Load a created perfume: 'L'");
-            Console.WriteLine("> Show this message again: 'H'");
-
             while (true)
             {
+                Console.WriteLine("> List essential oils alphabetically: 'A'");
+                Console.WriteLine("> Group oils by composition part: 'C'");
+                Console.WriteLine("> Group oils by scent type: 'S'");
+                Console.WriteLine("> Create a new perfume: 'N'");
+                Console.WriteLine("> Load a created perfume: 'L'");
+                Console.WriteLine("> Show this message again: 'H'");
+                Console.WriteLine("> End program: 'X'");
+
+                // Define a common folder for saving and loading files
+                string folder = @".\Perfumes";
+
+                // Ensure the directory exists
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
                 string choice = Console.ReadLine();
                 switch (choice.ToLower())
                 {
                     case "a":
                         AvailableOils.OrderAlphabetically();
+                        Console.WriteLine("Choose one of the following options to continue:");
                         break;
 
                     case "c":
                         AvailableOils.OrderByComposition();
+                        Console.WriteLine("Choose one of the following options to continue:");
                         break;
 
                     case "s":
                         AvailableOils.OrderByScentType();
+                        Console.WriteLine("Choose one of the following options to continue:");
                         break;
 
                     case "n":
@@ -88,9 +101,6 @@ namespace final_project_C_sharp2
                             strength = strength + num2;
                         }
 
-                        int strengthCalculated = 0;
-                        strengthCalculated = PerfumeStrength.CalculateStrength(strength);
-
                         Console.WriteLine("What will you name your new perfume?");
                         string perfumeName = Console.ReadLine();
                         Console.WriteLine($"Congratulations! Here is your complete perfume recipe for {perfumeName}.");
@@ -99,7 +109,7 @@ namespace final_project_C_sharp2
                             Console.WriteLine($"{dropCounts[i - 1]} {chosenOils[i - 1].OilName}");
                         }
                         Console.WriteLine($"Top with 10mL of carrier oil.");
-                        Console.WriteLine($"The perfume strength is {strengthCalculated}%.");
+                        Console.WriteLine($"The perfume strength is {strength}%.");
 
                         Perfume perfume = new Perfume($"{perfumeName}", chosenOils);
                         Console.WriteLine();
@@ -115,20 +125,20 @@ namespace final_project_C_sharp2
 
                                 {
                                     case "5":
-                                        int strength5 = PerfumeStrength.CalculateFor5mL(strength);
+                                        int strength5 = PerfumeStrength.CalculateStrength(5, strength);
                                         Console.WriteLine($"Concentration for 5mL is {strength5}%.");
                                         break;
                                     case "10":
-                                        int strength10 = PerfumeStrength.CalculateStrength(strength);
+                                        int strength10 = PerfumeStrength.CalculateStrength(10, strength);
                                         Console.WriteLine($"Concentration for 10mL is {strength10}%.");
                                         break;
                                     case "20":
-                                        int strength20 = PerfumeStrength.CalculateFor20mL(strength);
-                                        Console.WriteLine($"Concentration for 5mL is {strength20}%.");
+                                        int strength20 = PerfumeStrength.CalculateStrength(20, strength);
+                                        Console.WriteLine($"Concentration for 20mL is {strength20}%.");
                                         break;
                                     case "30":
-                                        int strength30 = PerfumeStrength.CalculateFor30mL(strength);
-                                        Console.WriteLine($"Concentration for 5mL is {strength30}%.");
+                                        int strength30 = PerfumeStrength.CalculateStrength(30, strength);
+                                        Console.WriteLine($"Concentration for 30mL is {strength30}%.");
                                         break;
                                     case "x":
                                         continuePrompting = false;
@@ -141,9 +151,15 @@ namespace final_project_C_sharp2
                         }
 
                         Console.WriteLine("Do you wish to save your perfume? Y/N");
+
+
                         if (Console.ReadLine().Equals("Y", StringComparison.OrdinalIgnoreCase))
+
                         {
-                            string folder = @"C:\Users\aaand\source\repos\final_project_C-sharp2";
+                            if (!Directory.Exists(folder))
+                            {
+                                Directory.CreateDirectory(folder);
+                            }
                             string filePath = Path.Combine(folder, $"{perfumeName}.txt");
 
                             if (File.Exists(filePath))
@@ -165,15 +181,16 @@ namespace final_project_C_sharp2
                                 writer.WriteLine($"The perfume strength is {strength}%.");
                             }
                             Console.WriteLine("Your perfume recipe has been saved.");
+                            Console.WriteLine("Choose one of the following options to continue:");
                         }
                         break;
 
                     case "l":
 
+
                         Console.WriteLine("Enter the name of the perfume you want to load:");
-                        perfumeName = Console.ReadLine();
-                        string folderLoad = @"C:\Users\aaand\source\repos\final_project_C-sharp2";
-                        string filePathLoad = Path.Combine(folderLoad, $"{perfumeName}.txt");
+                        string perfumeNameLoad = Console.ReadLine();
+                        string filePathLoad = Path.Combine(folder, $"{perfumeNameLoad}.txt");
 
                         if (File.Exists(filePathLoad))
                         {
@@ -187,22 +204,22 @@ namespace final_project_C_sharp2
                                 }
                             }
                         }
+
+
                         else
                         {
-                            Console.WriteLine($"File '{perfumeName}.txt' does not exist.");
+                            Console.WriteLine($"File '{perfumeNameLoad}.txt' does not exist.");
                             Console.WriteLine("Choose a different file:");
                         }
+                        Console.WriteLine("Choose one of the following options to continue:");
                         break;
 
                     case "h":
                         Console.WriteLine("Command list:");
-                        Console.WriteLine("List essential oils alphabetically: 'A'");
-                        Console.WriteLine("Group oils by composition part: 'C'");
-                        Console.WriteLine("> Group oils by scent type: 'S'");
-                        Console.WriteLine("> Create a new perfume: 'N'");
-                        Console.WriteLine("> Load a created perfume: 'L'");
-                        Console.WriteLine("> Show this message again: 'H'");
                         break;
+
+                    case "x":
+                        return;
 
                     default:
                         Console.WriteLine("Invalid input.");
