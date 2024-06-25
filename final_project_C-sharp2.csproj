@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvailableOils.cs" />
     <Compile Include="Oil.cs" />
     <Compile Include="Perfume.cs" />
     <Compile Include="PerfumeStrength.cs" />
